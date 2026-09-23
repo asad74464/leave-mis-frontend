@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { toast } from 'sonner';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
+import { useState } from "react";
+import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Dialog,
   DialogContent,
@@ -10,11 +10,16 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-} from '@/components/ui/dialog';
-import { api } from '@/lib/api';
+} from "@/components/ui/dialog";
+import { api } from "@/lib/api";
 
-export function RejectRequestDialog({ request, open, onOpenChange, onRejected }) {
-  const [reason, setReason] = useState('');
+export function RejectRequestDialog({
+  request,
+  open,
+  onOpenChange,
+  onRejected,
+}) {
+  const [reason, setReason] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   async function handleSubmit(e) {
@@ -22,13 +27,15 @@ export function RejectRequestDialog({ request, open, onOpenChange, onRejected })
     if (!request) return;
     setIsSubmitting(true);
     try {
-      await api.patch(`/leave-requests/${request.id}/reject`, { rejectionReason: reason });
-      toast.success('Request rejected');
-      setReason('');
+      await api.patch(`/leave-requests/${request.id}/reject`, {
+        rejectionReason: reason,
+      });
+      toast.success("Request rejected");
+      setReason("");
       onOpenChange(false);
       onRejected?.();
     } catch (err) {
-      toast.error(err.message || 'Could not reject the request');
+      toast.error(err.message || "Could not reject the request");
     } finally {
       setIsSubmitting(false);
     }
@@ -41,7 +48,9 @@ export function RejectRequestDialog({ request, open, onOpenChange, onRejected })
           <DialogHeader>
             <DialogTitle>Reject leave request</DialogTitle>
             <DialogDescription>
-              {request ? `${request.user?.name}'s request for ${request.numberOfDays} day(s) of ${request.leaveType?.name}.` : ''}{' '}
+              {request
+                ? `${request.user?.name}'s request for ${request.numberOfDays} day(s) of ${request.leaveType?.name}.`
+                : ""}{" "}
               State why, so the employee knows what to do next.
             </DialogDescription>
           </DialogHeader>
@@ -59,11 +68,15 @@ export function RejectRequestDialog({ request, open, onOpenChange, onRejected })
           </div>
 
           <DialogFooter className="mt-6">
-            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => onOpenChange(false)}
+            >
               Cancel
             </Button>
             <Button type="submit" variant="destructive" disabled={isSubmitting}>
-              {isSubmitting ? 'Rejecting…' : 'Reject request'}
+              {isSubmitting ? "Rejecting…" : "Reject request"}
             </Button>
           </DialogFooter>
         </form>

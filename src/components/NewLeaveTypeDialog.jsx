@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { toast } from 'sonner';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
+import { useState } from "react";
+import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Dialog,
   DialogContent,
@@ -11,10 +11,10 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-} from '@/components/ui/dialog';
-import { api } from '@/lib/api';
+} from "@/components/ui/dialog";
+import { api } from "@/lib/api";
 
-const EMPTY_FORM = { name: '', description: '', annualLimit: '' };
+const EMPTY_FORM = { name: "", description: "", annualLimit: "" };
 
 export function NewLeaveTypeDialog({ open, onOpenChange, onCreated }) {
   const [form, setForm] = useState(EMPTY_FORM);
@@ -28,17 +28,17 @@ export function NewLeaveTypeDialog({ open, onOpenChange, onCreated }) {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      await api.post('/leave-types', {
+      await api.post("/leave-types", {
         name: form.name,
         description: form.description || undefined,
         annualLimit: Number(form.annualLimit),
       });
-      toast.success('Leave type created');
+      toast.success("Leave type created");
       setForm(EMPTY_FORM);
       onOpenChange(false);
       onCreated?.();
     } catch (err) {
-      toast.error(err.message || 'Could not create the leave type');
+      toast.error(err.message || "Could not create the leave type");
     } finally {
       setIsSubmitting(false);
     }
@@ -51,14 +51,21 @@ export function NewLeaveTypeDialog({ open, onOpenChange, onCreated }) {
           <DialogHeader>
             <DialogTitle>New leave type</DialogTitle>
             <DialogDescription>
-              Every existing employee automatically gets a balance for this leave type, set to the annual limit.
+              Every existing employee automatically gets a balance for this
+              leave type, set to the annual limit.
             </DialogDescription>
           </DialogHeader>
 
           <div className="mt-5 flex flex-col gap-4">
             <div className="flex flex-col gap-1.5">
               <Label htmlFor="name">Name</Label>
-              <Input id="name" required placeholder="e.g. Maternity Leave" value={form.name} onChange={(e) => update('name', e.target.value)} />
+              <Input
+                id="name"
+                required
+                placeholder="e.g. Maternity Leave"
+                value={form.name}
+                onChange={(e) => update("name", e.target.value)}
+              />
             </div>
             <div className="flex flex-col gap-1.5">
               <Label htmlFor="annualLimit">Annual limit (days)</Label>
@@ -68,7 +75,7 @@ export function NewLeaveTypeDialog({ open, onOpenChange, onCreated }) {
                 min={1}
                 required
                 value={form.annualLimit}
-                onChange={(e) => update('annualLimit', e.target.value)}
+                onChange={(e) => update("annualLimit", e.target.value)}
               />
             </div>
             <div className="flex flex-col gap-1.5">
@@ -77,17 +84,21 @@ export function NewLeaveTypeDialog({ open, onOpenChange, onCreated }) {
                 id="description"
                 placeholder="When employees should use this leave type"
                 value={form.description}
-                onChange={(e) => update('description', e.target.value)}
+                onChange={(e) => update("description", e.target.value)}
               />
             </div>
           </div>
 
           <DialogFooter className="mt-6">
-            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => onOpenChange(false)}
+            >
               Cancel
             </Button>
             <Button type="submit" variant="accent" disabled={isSubmitting}>
-              {isSubmitting ? 'Creating…' : 'Create leave type'}
+              {isSubmitting ? "Creating…" : "Create leave type"}
             </Button>
           </DialogFooter>
         </form>

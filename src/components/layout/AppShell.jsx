@@ -1,5 +1,5 @@
-import { Sidebar } from './Sidebar';
-import { Topbar } from './Topbar';
+import { Sidebar } from "./Sidebar";
+import { Topbar } from "./Topbar";
 
 export function AppShell({ title, description, children }) {
   return (
