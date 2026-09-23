@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  Design tokens — a "ledger and seal" identity for an internal leave
+  register: deep ink-navy for structure/authority, a cool paper
+  background (not the common warm cream), and a brass/amber accent
+  standing in for an official stamp. Status colors follow the same
+  metaphor: brass = awaiting the stamp, pine green = stamped/cleared,
+  brick red = stamp withheld.
+*/
+@layer base {
+  :root {
+    --background: 150 10% 97%;
+    --foreground: 219 46% 14%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 219 46% 14%;
+
+    --primary: 219 46% 18%;
+    --primary-foreground: 40 30% 96%;
+
+    --secondary: 150 8% 92%;
+    --secondary-foreground: 219 46% 18%;
+
+    --muted: 150 8% 93%;
+    --muted-foreground: 219 15% 40%;
+
+    --accent: 33 56% 52%;
+    --accent-foreground: 219 46% 14%;
+
+    --destructive: 0 45% 44%;
+    --destructive-foreground: 40 30% 96%;
+
+    --success: 164 40% 28%;
+    --success-foreground: 40 30% 96%;
+
+    --warning: 39 62% 42%;
+    --warning-foreground: 40 30% 96%;
+
+    --border: 219 15% 85%;
+    --input: 219 15% 85%;
+    --ring: 33 56% 52%;
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    /* Respect reduced-motion preferences globally. */
+    scroll-behavior: smooth;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  .font-display {
+    font-family: 'Fraunces', serif;
+    font-optical-sizing: auto;
+  }
+}
